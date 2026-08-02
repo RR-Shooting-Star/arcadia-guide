@@ -223,13 +223,13 @@ const COUNTRIES = [
 {id:'draconia', name:'드래코니아 산악국', type:'용과 계약한 산악 국가', accent:'#956433', px:210, py:255, factionCount:4,
  desc:'거대한 산맥과 용의 힘을 기반으로 형성된 국가다. 용은 실제로 존재하는 생명체이며, 인간과 반룡은 용과 계약을 맺는다.'}
 ];
-let CHARACTER_COUNT = 38; // characters.html을 못 읽어올 경우(로컬 file:// 등)를 위한 대체값 - 인물 추가/삭제 시 이 숫자도 같이 맞춰두면 안전
+let CHARACTER_COUNT = 42; // characters.html을 못 읽어올 경우(로컬 file:// 등)를 위한 대체값 - 인물/신 추가·삭제 시 이 숫자도 같이 맞춰두면 안전 (현재 인물 38 + 신 4)
 async function syncCharacterCount(){
   try{
     const res = await fetch('characters.html');
     if(res.ok){
       const text = await res.text();
-      const matches = text.match(/\{name:'[^']+'/g);
+      const matches = text.match(/\{\s*name:'[^']+'/g);
       if(matches) CHARACTER_COUNT = matches.length;
     }
   }catch(e){
