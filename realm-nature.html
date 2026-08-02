@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>만록의 성역 — 자연의 신</title>
+<style>
+@keyframes sway{ 0%,100%{ transform:rotate(-2deg);} 50%{ transform:rotate(2deg);} }
+@keyframes firefly{ 0%,100%{ opacity:.2; transform:translateY(0);} 50%{ opacity:1; transform:translateY(-14px);} }
+@keyframes ripple{ from{ transform:translate(-50%,-50%) scale(.6); opacity:.7;} to{ transform:translate(-50%,-50%) scale(2.2); opacity:0;} }
+@keyframes fadeUp{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+@keyframes leafFall{ 0%{transform:translateY(-20px) rotate(0deg); opacity:0;} 10%{opacity:.8;} 100%{transform:translateY(500px) rotate(200deg); opacity:0;} }
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; min-height:100vh; position:relative; overflow-x:hidden;
+  background:linear-gradient(120deg, #16321f 0%, #1c3d2a 25%, #2f4a1f 50%, #3d3a1c 75%, #16321f 100%);
+  background-size:400% 400%;
+  animation:seasonshift 26s ease-in-out infinite;
+  color:#e8f3e2; font-family:"Nanum Myeongjo","Noto Serif KR",Georgia,serif;
+}
+@keyframes seasonshift{ 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+.back-link{position:fixed; top:20px; left:20px; z-index:20; font-family:"Malgun Gothic",sans-serif;
+  font-size:.78rem; color:#bfe0b0; text-decoration:none; letter-spacing:.05em; border:1px solid rgba(127,207,159,.35);
+  padding:7px 14px; border-radius:20px; background:rgba(20,40,25,.4); backdrop-filter:blur(4px);}
+.back-link:hover{color:#fff6da; border-color:#fff6da;}
+
+.fireflies{position:fixed; inset:0; z-index:1; pointer-events:none;}
+.firefly{position:absolute; width:4px; height:4px; border-radius:50%; background:#e8f0a0;
+  box-shadow:0 0 8px 2px rgba(232,240,160,.7); animation:firefly ease-in-out infinite;}
+
+main{position:relative; z-index:5; max-width:800px; margin:0 auto; padding:130px 24px 120px;}
+
+.eyebrow{text-align:center; font-size:.7rem; letter-spacing:.45em; color:#9fd6a8; text-transform:uppercase; margin-bottom:22px; animation:fadeUp 1s ease both;}
+h1{text-align:center; font-size:clamp(2.6rem,7vw,4.2rem); margin:0 0 .2em; color:#e6f5cf;
+  text-shadow:0 0 30px rgba(127,207,159,.4); letter-spacing:.06em; animation:fadeUp 1s ease .1s both;}
+.subtitle{text-align:center; font-style:italic; color:#bfe0b0; font-size:1.05rem; margin-bottom:14px; animation:fadeUp 1s ease .2s both;}
+.location-note{text-align:center; font-family:"Malgun Gothic",sans-serif; font-size:.78rem; color:#9fd6a8; margin-bottom:50px; opacity:.8;}
+
+.tree-wrap{display:flex; justify-content:center; margin:40px 0 60px; animation:fadeUp 1s ease .3s both;}
+.tree{width:200px; height:220px; transform-origin:bottom center; animation:sway 7s ease-in-out infinite;}
+
+.desc{font-size:1.08rem; line-height:2.1; color:#eaf5df; text-align:center; max-width:640px; margin:0 auto 60px;
+  animation:fadeUp 1s ease .4s both;}
+
+.lake-wrap{display:flex; justify-content:center; margin:0 auto 70px; animation:fadeUp 1s ease .5s both;}
+.lake{width:280px; height:70px; position:relative;}
+.ring{position:absolute; border:1px solid rgba(180,230,220,.5); border-radius:50%; left:50%; top:50%;
+  transform:translate(-50%,-50%); animation:ripple 3.5s ease-out infinite;}
+
+.gallery-title{text-align:center; font-size:.72rem; letter-spacing:.3em; color:#9fd6a8; text-transform:uppercase; margin-bottom:22px;}
+.gallery-slot{max-width:640px; margin:0 auto 70px; aspect-ratio:16/9; border:1px dashed rgba(127,207,159,.4); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; color:#9fd6a8; font-family:"Malgun Gothic",sans-serif; font-size:.85rem;
+  background:rgba(63,156,106,.1); position:relative; overflow:hidden;}
+.gallery-slot img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none;}
+
+.footer-mark{text-align:center; font-size:.72rem; color:#5c7a5c; letter-spacing:.15em; padding-top:30px; border-top:1px solid rgba(127,207,159,.2);}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="realms.html">◀ 신계로</a>
+<div class="fireflies" id="fireflyField"></div>
+
+<main>
+  <div class="eyebrow">The Realm of Nature</div>
+  <h1>만록의 성역</h1>
+  <div class="subtitle">자연의 신이 머무는 곳</div>
+
+  <div class="tree-wrap">
+    <svg class="tree" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+      <rect x="92" y="130" width="16" height="90" fill="#4a3a24"/>
+      <path d="M92,150 C60,145 50,120 55,100 M108,150 C140,145 150,120 145,100" fill="none" stroke="#4a3a24" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="100" cy="80" rx="90" ry="65" fill="#3f9c6a" opacity="0.85"/>
+      <ellipse cx="60" cy="60" rx="45" ry="35" fill="#4fae7a" opacity="0.7"/>
+      <ellipse cx="145" cy="70" rx="50" ry="38" fill="#2f6a4a" opacity="0.7"/>
+      <ellipse cx="100" cy="45" rx="55" ry="32" fill="#7fcf9f" opacity="0.55"/>
+    </svg>
+  </div>
+
+  <p class="desc">
+    거대한 세계수를 중심으로 끝없는 원시림이 펼쳐진 성역. 수정처럼 맑은 호수와 계곡이 숲 사이를 가로지르고,
+    하나의 풍경 안에 사계절이 동시에 공존한다. 생명의 숨결이 가득한 따뜻한 공기가 이 성역 전체를 감싼다.
+  </p>
+
+  <div class="lake-wrap">
+    <div class="lake">
+      <div class="ring" style="width:60px;height:60px;animation-delay:0s"></div>
+      <div class="ring" style="width:60px;height:60px;animation-delay:1.2s"></div>
+      <div class="ring" style="width:60px;height:60px;animation-delay:2.4s"></div>
+    </div>
+  </div>
+
+  <div class="gallery-title">Gallery</div>
+  <div class="gallery-slot">
+    <span class="gallery-slot-text">[만록의 성역 이미지 삽입 위치]</span>
+    <img src="images/realms/만록의성역.png" data-orig="images/realms/만록의성역.png" alt="만록의 성역" onload="this.previousElementSibling.style.display='none'; this.style.display='block';" onerror="realmImgFallback(this)">
+  </div>
+
+  <div class="footer-mark">Chronicles of Arcadia · 신계</div>
+</main>
+
+<script>
+function realmImgFallback(el){
+  if(el.dataset.nfdTried){ el.style.display = 'none'; return; }
+  el.dataset.nfdTried = '1';
+  const alt = el.dataset.orig.normalize('NFD');
+  if(alt === el.getAttribute('src')){ el.style.display = 'none'; return; }
+  el.src = alt;
+}
+const field = document.getElementById('fireflyField');
+for(let i=0;i<24;i++){
+  const f = document.createElement('div');
+  f.className = 'firefly';
+  f.style.left = (Math.random()*100)+'vw';
+  f.style.top = (20+Math.random()*70)+'vh';
+  f.style.animationDuration = (2+Math.random()*3)+'s';
+  f.style.animationDelay = '-'+(Math.random()*4)+'s';
+  field.appendChild(f);
+}
+</script>
+</body>
+</html>
