@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>영겁의 회랑 — 시간의 신</title>
+<style>
+@keyframes drift{ from{ transform:translateY(0) translateX(0); opacity:0; } 10%{ opacity:.8; } 90%{ opacity:.8; } to{ transform:translateY(-620px) translateX(40px); opacity:0; } }
+@keyframes gearspin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+@keyframes gearspinRev{ from{ transform:rotate(0deg); } to{ transform:rotate(-360deg); } }
+@keyframes pendulum{ 0%,100%{ transform:rotate(-6deg); } 50%{ transform:rotate(6deg); } }
+@keyframes glowPulse{ 0%,100%{ opacity:.5; } 50%{ opacity:1; } }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; min-height:100vh;
+  background:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(135,116,216,.35), transparent 60%),
+    linear-gradient(180deg, #0d0a1a 0%, #171233 45%, #0d0a1a 100%);
+  color:#e7defc; font-family:"Nanum Myeongjo","Noto Serif KR",Georgia,serif;
+  overflow-x:hidden; position:relative;
+}
+
+.sand{position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden;}
+.grain{position:absolute; bottom:-20px; width:3px; height:3px; border-radius:50%;
+  background:#f0d58a; box-shadow:0 0 6px 1px rgba(240,213,138,.7); animation:drift linear infinite;}
+
+.back-link{position:fixed; top:20px; left:20px; z-index:20; font-family:"Malgun Gothic",sans-serif;
+  font-size:.78rem; color:#b9a6ef; text-decoration:none; letter-spacing:.05em; border:1px solid rgba(185,166,239,.3);
+  padding:7px 14px; border-radius:20px; background:rgba(13,10,26,.4); backdrop-filter:blur(4px);}
+.back-link:hover{color:#f0d58a; border-color:#f0d58a;}
+
+.gearfield{position:absolute; top:60px; right:-60px; width:340px; height:340px; z-index:2; opacity:.5;}
+.gearfield svg{width:100%; height:100%;}
+.gear-a{transform-origin:170px 170px; animation:gearspin 40s linear infinite;}
+.gear-b{transform-origin:170px 170px; animation:gearspinRev 28s linear infinite;}
+
+main{position:relative; z-index:5; max-width:800px; margin:0 auto; padding:140px 24px 120px;}
+
+.eyebrow{text-align:center; font-size:.7rem; letter-spacing:.45em; color:#9a8fc4; text-transform:uppercase; margin-bottom:22px; animation:fadeUp 1s ease both;}
+h1{text-align:center; font-size:clamp(2.6rem,7vw,4.2rem); margin:0 0 .2em; color:#f0d58a;
+  text-shadow:0 0 30px rgba(240,213,138,.4); letter-spacing:.08em; animation:fadeUp 1s ease .1s both;}
+.subtitle{text-align:center; font-style:italic; color:#c9baf0; font-size:1.05rem; margin-bottom:50px; animation:fadeUp 1s ease .2s both;}
+
+.hourglass-wrap{display:flex; justify-content:center; margin:50px 0 60px; animation:fadeUp 1s ease .3s both;}
+.hourglass{width:120px; height:170px; position:relative; animation:pendulum 6s ease-in-out infinite; transform-origin:top center;}
+.hourglass svg{width:100%; height:100%; filter:drop-shadow(0 0 18px rgba(240,213,138,.45));}
+
+.desc{font-size:1.08rem; line-height:2.1; color:#d9d0f5; text-align:center; max-width:640px; margin:0 auto 60px;
+  animation:fadeUp 1s ease .4s both;}
+
+.doors-row{display:flex; justify-content:center; gap:18px; margin:0 auto 70px; flex-wrap:wrap; animation:fadeUp 1s ease .5s both;}
+.door{width:64px; height:110px; border:1px solid rgba(185,166,239,.35); border-top-left-radius:32px; border-top-right-radius:32px;
+  background:linear-gradient(180deg, rgba(135,116,216,.12), rgba(135,116,216,.02)); position:relative;}
+.door::after{content:'';position:absolute; top:50%; right:10px; width:4px; height:4px; border-radius:50%; background:#f0d58a; opacity:.7;}
+
+.gallery-title{text-align:center; font-size:.72rem; letter-spacing:.3em; color:#9a8fc4; text-transform:uppercase; margin-bottom:22px;}
+.gallery-slot{max-width:640px; margin:0 auto 70px; aspect-ratio:16/9; border:1px dashed rgba(185,166,239,.4); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; color:#9a8fc4; font-family:"Malgun Gothic",sans-serif; font-size:.85rem;
+  background:rgba(135,116,216,.06); position:relative; overflow:hidden;}
+.gallery-slot img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none;}
+
+.footer-mark{text-align:center; font-size:.72rem; color:#6f6591; letter-spacing:.15em; padding-top:30px; border-top:1px solid rgba(185,166,239,.15);}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="realms.html">◀ 신계로</a>
+
+<div class="sand" id="sandField"></div>
+
+<div class="gearfield">
+  <svg viewBox="0 0 340 340">
+    <g class="gear-a">
+      <circle cx="170" cy="170" r="90" fill="none" stroke="#8774d8" stroke-width="1.2" opacity="0.5"/>
+      <g fill="#8774d8" opacity="0.5">
+        <rect x="166" y="70" width="8" height="18"/><rect x="166" y="252" width="8" height="18"/>
+        <rect x="70" y="166" width="18" height="8"/><rect x="252" y="166" width="18" height="8"/>
+        <rect x="100" y="100" width="10" height="14" transform="rotate(45 105 107)"/>
+        <rect x="222" y="100" width="10" height="14" transform="rotate(-45 227 107)"/>
+        <rect x="100" y="228" width="10" height="14" transform="rotate(-45 105 235)"/>
+        <rect x="222" y="228" width="10" height="14" transform="rotate(45 227 235)"/>
+      </g>
+    </g>
+    <g class="gear-b">
+      <circle cx="170" cy="170" r="55" fill="none" stroke="#f0d58a" stroke-width="1" opacity="0.4"/>
+    </g>
+  </svg>
+</div>
+
+<main>
+  <div class="eyebrow">The Realm of Time</div>
+  <h1>영겁의 회랑</h1>
+  <div class="subtitle">시간의 신이 머무는 곳</div>
+
+  <div class="hourglass-wrap">
+    <div class="hourglass">
+      <svg viewBox="0 0 120 170" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,10 L100,10 L100,20 L60,85 L100,150 L100,160 L20,160 L20,150 L60,85 L20,20 Z"
+          fill="none" stroke="#f0d58a" stroke-width="2"/>
+        <path d="M30,20 L90,20 L60,80 Z" fill="#f0d58a" opacity="0.75"/>
+        <path d="M30,150 L90,150 L60,90 Z" fill="none" stroke="#f0d58a" stroke-width="1" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <p class="desc">
+    끝없이 이어지는 대리석 회랑. 공중에는 거대한 시계와 톱니바퀴가 소리 없이 떠서 돌아가고,
+    벽을 따라 수많은 문과 창문이 늘어서 있다. 공기 중에는 금빛 모래가 가만히 떠다니며,
+    적막하지만 장엄한 기운이 회랑 전체를 가득 채운다.
+  </p>
+
+  <div class="doors-row">
+    <div class="door"></div><div class="door"></div><div class="door"></div>
+    <div class="door"></div><div class="door"></div><div class="door"></div>
+  </div>
+
+  <div class="gallery-title">Gallery</div>
+  <div class="gallery-slot">
+    <span class="gallery-slot-text">[영겁의 회랑 이미지 삽입 위치]</span>
+    <img src="images/realms/영겁의회랑.png" alt="영겁의 회랑" onload="this.previousElementSibling.style.display='none'; this.style.display='block';" onerror="this.style.display='none'">
+  </div>
+
+  <div class="footer-mark">Chronicles of Arcadia · 신계</div>
+</main>
+
+<script>
+const field = document.getElementById('sandField');
+for(let i=0;i<40;i++){
+  const g = document.createElement('div');
+  g.className = 'grain';
+  const left = Math.random()*100;
+  const dur = 8 + Math.random()*10;
+  const delay = Math.random()*12;
+  g.style.left = left+'vw';
+  g.style.animationDuration = dur+'s';
+  g.style.animationDelay = '-'+delay+'s';
+  field.appendChild(g);
+}
+</script>
+</body>
+</html>
